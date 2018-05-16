@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 const twitterData = {
+    userInfo: [],
     tweets: [],
     friends: [],
     messages: []
@@ -40,7 +41,14 @@ T.get('statuses/user_timeline', { count: 5 }, (err, data, response) => {
         console.log('an Error occurred while retrieving the tweets');
         return next(err);
     }
-    
+
+    const userObj = {
+        name: data[0].user.screen_name,
+        profileImg: data[0].user.profile_image_url
+    }
+    twitterData.userInfo.push(userObj);
+    console.log(twitterData.userInfo);
+
     data.forEach((tweetInfo) => {
         let tweetObj = {};
         tweetObj.content = tweetInfo.text;
