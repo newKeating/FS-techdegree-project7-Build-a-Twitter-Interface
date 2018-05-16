@@ -1,0 +1,27 @@
+{
+  "name": "fs-techdegree-project7-build-a-twitter-interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/app.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "moment": "^2.22.1",
+    "npm": "^6.0.0",
+    "pug": "^2.0.3",
+    "twit": "^2.2.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newKeating/FS-techdegree-project7-Build-a-Twitter-Interface.git"
+  },
+  "author": "Peter Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/newKeating/FS-techdegree-project7-Build-a-Twitter-Interface/issues"
+  },
+  "homepage": "https://github.com/newKeating/FS-techdegree-project7-Build-a-Twitter-Interface#readme"
+}
