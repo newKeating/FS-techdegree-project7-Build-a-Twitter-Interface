@@ -72,11 +72,11 @@ T.get('direct_messages/events/list', { count: 5 }, (err, data, response) => {
         messageObj.time = time;
         twitterData.messages.push(messageObj);
     });
+    console.log(twitterData.messages);
 });
 
 app.get('/', (req, res, next) => {
     res.render('index', twitterData);
-    console.log(twitterData);
 });
 
 app.listen(3000, () => {
