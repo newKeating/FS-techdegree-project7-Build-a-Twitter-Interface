@@ -4,36 +4,18 @@ const Twit = require('twit')
 const config = require('./config.js');
 const moment = require('moment');
 
-const T = new Twit(config); 
-
-app.use(express.static('public'));
-
-app.set('view engine', 'pug');
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
+const T = new Twit(config);
 
 const twitterData = {
-    userInfo: [],
+    userInfo: {},
     tweets: [],
     friends: [],
     messages: []
 }
-// Each rendered result must include all of the information seen in the sample layout:
-    // Tweets
-        // tweet content
-        // # of retweets
-        // # of likes
-        // date tweeted
-    // Friends
-        // profile image
-        // real name
-        // screen name
-    // Messages
-        // message body
-        // date the message was sent
-        // time the message was sent
+
+app.use(express.static('public'));
+
+app.set('view engine', 'pug');
 
 T.get('statuses/user_timeline', { count: 5 }, (err, data, response) => {
     if (err) {
@@ -42,12 +24,10 @@ T.get('statuses/user_timeline', { count: 5 }, (err, data, response) => {
         return next(err);
     }
 
-    const userObj = {
-        name: data[0].user.screen_name,
-        profileImg: data[0].user.profile_image_url
-    }
-    twitterData.userInfo.push(userObj);
-    console.log(twitterData.userInfo);
+    twitterData.userInfo.name = data[0].user.name;
+    twitterData.userInfo.screenName = data[0].user.screen_name;
+    twitterData.userInfo.profileImg = data[0].user.profile_image_url;
+    twitterData.userInfo.freindsCount = data[0].user.friends_count;
 
     data.forEach((tweetInfo) => {
         let tweetObj = {};
@@ -58,10 +38,8 @@ T.get('statuses/user_timeline', { count: 5 }, (err, data, response) => {
         tweetObj.date = date.toDateString();
         twitterData.tweets.push(tweetObj);
     });
-    console.log(twitterData.tweets);
 });
-
-T.get('friends/list', { count: 5}, (err, data, response) => {
+T.get('friends/list', { count: 5 }, (err, data, response) => {
     if (err) {
         err.message = 'Sorry, an Error occurred while retrieving the friends list.';
         console.log('an Error occurred while retrieving the friends list');
@@ -77,8 +55,7 @@ T.get('friends/list', { count: 5}, (err, data, response) => {
     });
     console.log(twitterData.friends);
 });
-
-T.get('direct_messages/events/list', { count: 5}, (err, data, response) => {
+T.get('direct_messages/events/list', { count: 5 }, (err, data, response) => {
     if (err) {
         err.message = 'Sorry, an Error occurred while retrieving the direct messages.';
         console.log('an Error occurred while retrieving the direct messages');
@@ -95,7 +72,11 @@ T.get('direct_messages/events/list', { count: 5}, (err, data, response) => {
         messageObj.time = time;
         twitterData.messages.push(messageObj);
     });
-    console.log(twitterData.messages);
+});
+
+app.get('/', (req, res, next) => {
+    res.render('index', twitterData);
+    console.log(twitterData);
 });
 
 app.listen(3000, () => {
