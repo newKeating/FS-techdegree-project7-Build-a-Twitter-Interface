@@ -1,6 +1,6 @@
 # TeamTreehouse FullStack JavaScript Techdegree Project7
 # Build a Twitter Interface
-![alt text](https://github.com/newKeating/FS-techdegree-project6-Build-a-Content-Scraper/blob/master/Project6-Pass-Confirmed.png)
+![alt text](https://github.com/newKeating/FS-techdegree-project7-Build-a-Twitter-Interface/blob/master/Project7-pass-confirmed.png)
 
 ## About this Project
 
