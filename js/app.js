@@ -53,7 +53,6 @@ T.get('friends/list', { count: 5 }, (err, data, response) => {
         friendsObj.screenName = friendsInfo.screen_name;
         twitterData.friends.push(friendsObj);
     });
-    console.log(twitterData.friends);
 });
 T.get('direct_messages/events/list', { count: 5 }, (err, data, response) => {
     if (err) {
@@ -72,7 +71,6 @@ T.get('direct_messages/events/list', { count: 5 }, (err, data, response) => {
         messageObj.time = time;
         twitterData.messages.push(messageObj);
     });
-    console.log(twitterData.messages);
 });
 
 app.get('/', (req, res, next) => {
